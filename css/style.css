@@ -420,6 +420,22 @@ img {
   color: var(--navy);
 }
 
+/* ===== Card with bottom-aligned action ===== */
+.card-cta {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.card-cta p {
+  flex: 1;
+}
+
+.card-cta .btn {
+  margin-top: auto;
+  align-self: center;
+}
+
 /* ===== Grid ===== */
 .grid-2 {
   display: grid;
