@@ -2,9 +2,15 @@
 (function () {
   var container = document.getElementById('news-list');
   if (!container) return;
+  var newsUrl = '/news.json';
 
-  fetch('news.json')
-    .then(function (res) { return res.json(); })
+  fetch(newsUrl)
+    .then(function (res) {
+      if (!res.ok) {
+        throw new Error('Failed to load news feed: ' + res.status);
+      }
+      return res.json();
+    })
     .then(function (items) {
       if (!items || items.length === 0) {
         container.innerHTML = '<p style="color: #999;">No news items yet.</p>';
@@ -28,6 +34,14 @@
         html += '<h3>' + escapeHtml(item.title) + '</h3>';
         if (item.description) {
           html += '<p>' + escapeHtml(item.description) + '</p>';
+        }
+        if (item.image) {
+          html += '<figure class="news-media">';
+          html += '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.imageAlt || item.title || 'News image') + '" class="news-image">';
+          if (item.imageCaption) {
+            html += '<figcaption class="news-caption">' + escapeHtml(item.imageCaption) + '</figcaption>';
+          }
+          html += '</figure>';
         }
         if (dateStr) {
           html += '<p class="meta">' + dateStr + '</p>';
