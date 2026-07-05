@@ -46,9 +46,14 @@
         if (dateStr) {
           html += '<p class="meta">' + dateStr + '</p>';
         }
-        if (item.link) {
+        if (item.link || item.secondaryLink) {
           html += '<div class="link-row">';
-          html += '<a href="' + escapeHtml(item.link) + '" target="_blank" rel="noopener" class="btn btn-outline">Read more &rarr;</a>';
+          if (item.link) {
+            html += '<a href="' + escapeHtml(item.link) + '" target="_blank" rel="noopener" class="btn btn-outline">Read more &rarr;</a>';
+          }
+          if (item.secondaryLink) {
+            html += '<a href="' + escapeHtml(item.secondaryLink) + '" target="_blank" rel="noopener" class="btn btn-outline">' + escapeHtml(item.secondaryLinkLabel || 'View more') + ' &rarr;</a>';
+          }
           html += '</div>';
         }
         html += '</div>';
